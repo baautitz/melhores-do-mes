@@ -11,91 +11,91 @@
 
 <script>
     function getRanking(rankName) {
-    var ranking = []
+        var ranking = []
 
-    const victoryInputs = Array.from(document.getElementById(`${rankName}-inputs`).children)
+        const victoryInputs = Array.from(document.getElementById(`${rankName}-inputs`).children)
 
-    victoryInputs.forEach(input => {
-        const nickInput = input.getElementsByClassName("nick-input")[0].getElementsByTagName("input")[0].value
-        const poinsInput = input.getElementsByClassName("points-input")[0].getElementsByTagName("input")[0].value
+        victoryInputs.forEach(input => {
+            const nickInput = input.getElementsByClassName("nick-input")[0].getElementsByTagName("input")[0].value
+            const poinsInput = input.getElementsByClassName("points-input")[0].getElementsByTagName("input")[0].value
 
-        ranking.push({
-            nick: nickInput,
-            points: poinsInput
+            ranking.push({
+                nick: nickInput,
+                points: poinsInput
+            })
+        });
+
+        return ranking
+    }
+
+    function generateDivs(rankName) {
+        const ranking = getRanking(rankName)
+
+        var rankingDivs = []
+        var counter = 1
+
+        ranking.forEach(victory => {
+            const playerDiv = document.createElement('div')
+            playerDiv.classList.add("player")
+            if (counter == 1) playerDiv.classList.add("first-player")
+
+            const classificationSpan = document.createElement('span')
+            classificationSpan.classList.add("classification-player")
+            if (counter == 1) classificationSpan.classList.add("first-class")
+            if (counter == 2) classificationSpan.classList.add("second-class")
+            if (counter == 3) classificationSpan.classList.add("third-class")
+            classificationSpan.innerHTML = `${counter}º`
+
+            const avatarImg = document.createElement('img')
+            avatarImg.classList.add('avatar-head')
+            avatarImg.src = `http://cravatar.eu/helmavatar/${victory.nick}/32`
+
+            const nicknameSpan = document.createElement('span')
+            nicknameSpan.classList.add('nickname')
+            nicknameSpan.innerHTML = victory.nick
+
+            const pointsSpan = document.createElement('span')
+            pointsSpan.classList.add('points')
+            pointsSpan.innerHTML = victory.points
+
+            playerDiv.append(classificationSpan)
+            playerDiv.append(avatarImg)
+            playerDiv.append(nicknameSpan)
+            playerDiv.append(pointsSpan)
+
+            rankingDivs.push(playerDiv)
+            counter++
         })
-    });
 
-    return ranking
-}
+        return rankingDivs
+    }
 
-function generateDivs(rankName) {
-    const ranking = getRanking(rankName)
+    function generateHTML() {
+        const victoryTableDiv = document.getElementById("victory-players")
+        const killTableDiv = document.getElementById("kill-players")
 
-    var rankingDivs = []
-    var counter = 1
+        const victoryDivs = generateDivs("victory")
+        const killDivs = generateDivs("kill")
 
-    ranking.forEach(victory => {
-        const playerDiv = document.createElement('div')
-        playerDiv.classList.add("player")
-        if (counter == 1) playerDiv.classList.add("first-player")
+        var newVictoryDivHTML = ``
+        var newKillDivHTML = ``
 
-        const classificationSpan = document.createElement('span')
-        classificationSpan.classList.add("classification-player")
-        if (counter == 1) classificationSpan.classList.add("first-class")
-        if (counter == 2) classificationSpan.classList.add("second-class")
-        if (counter == 3) classificationSpan.classList.add("third-class")
-        classificationSpan.innerHTML = `${counter}º`
+        victoryDivs.forEach(div => newVictoryDivHTML += div.outerHTML)
+        killDivs.forEach(div => newKillDivHTML += div.outerHTML)
 
-        const avatarImg = document.createElement('img')
-        avatarImg.classList.add('avatar-head')
-        avatarImg.src = `http://cravatar.eu/helmavatar/${victory.nick}/32`
+        victoryTableDiv.innerHTML = newVictoryDivHTML
+        killTableDiv.innerHTML = newKillDivHTML
 
-        const nicknameSpan = document.createElement('span')
-        nicknameSpan.classList.add('nickname')
-        nicknameSpan.innerHTML = victory.nick
+        document.getElementById("kills-table").getElementsByClassName("ranking-title")[0].childNodes[1].innerHTML = 'Ranking de ' + document.getElementById("kill-dropmenu").value
+    }
 
-        const pointsSpan = document.createElement('span')
-        pointsSpan.classList.add('points')
-        pointsSpan.innerHTML = victory.points
+    function copyHTML() {
+        const html = document.getElementById("parse-html")
 
-        playerDiv.append(classificationSpan)
-        playerDiv.append(avatarImg)
-        playerDiv.append(nicknameSpan)
-        playerDiv.append(pointsSpan)
-
-        rankingDivs.push(playerDiv)
-        counter++
-    })
-
-    return rankingDivs
-}
-
-function generateHTML() {
-    const victoryTableDiv = document.getElementById("victory-players")
-    const killTableDiv = document.getElementById("kill-players")
-
-    const victoryDivs = generateDivs("victory")
-    const killDivs = generateDivs("kill")
-
-    var newVictoryDivHTML = ``
-    var newKillDivHTML = ``
-
-    victoryDivs.forEach(div => newVictoryDivHTML += div.outerHTML )
-    killDivs.forEach(div => newKillDivHTML += div.outerHTML)
-
-    victoryTableDiv.innerHTML = newVictoryDivHTML
-    killTableDiv.innerHTML = newKillDivHTML
-
-    document.getElementById("kills-table").getElementsByClassName("ranking-title")[0].childNodes[1].innerHTML = 'Ranking de ' + document.getElementById("kill-dropmenu").value
-}
-
-function copyHTML() {
-    const html = document.getElementById("parse-html")
-
-    navigator.clipboard.writeText("[parsehtml]" + html.innerHTML + "[/parsehtml]").then(() => {
-        alert("Copiado!")
-    })
-}
+        navigator.clipboard.writeText("[parsehtml]" + html.innerHTML + "[/parsehtml]").then(() => {
+            alert("Copiado!")
+        })
+    }
 </script>
 
 <body>
@@ -164,7 +164,7 @@ function copyHTML() {
             display: flex;
         }
 
-        .input-title > select{
+        .input-title>select {
             margin-left: 5px;
         }
 
@@ -177,7 +177,7 @@ function copyHTML() {
             padding-right: 10px;
         }
 
-        #generate > button {
+        #generate>button {
             padding: 5px 10px;
             border-radius: 7px;
             font-size: 17px;
@@ -275,7 +275,7 @@ function copyHTML() {
         </div>
 
         <div class="ranking-box box">
-            <h2 class="input-title">Ranking de 
+            <h2 class="input-title">Ranking de
                 <select id="kill-dropmenu">
                     <option value="Abates">Abates</option>
                     <option value="Pontos">Pontos</option>
@@ -356,156 +356,161 @@ function copyHTML() {
                     #ranking-wrapper {
                         font-size: 20px;
                         font-family: Noto Sans, sans-serif;
-                
+
                         width: 100%;
                         max-width: 830px;
-            
+
                         display: flex;
-                        /* justify-content: center; */
-                
+                        justify-content: center;
+
                         overflow-x: auto;
                         /* background-color: green; */
                     }
-                
+
                     #ranking {
                         padding: 15px;
                         border-radius: 5px;
                         width: 750px;
                         min-width: 750px;
-            
-                        margin: 5px 20px;
-                
+
+                        margin: 20px 5px;
+
                         box-shadow: 0px 0px 12px -3px rgb(0 0 0 / 50%);
-                
+
                         display: flex;
                         justify-content: space-around;
                     }
-                
-                
+
+
                     .ranking-title {
                         text-align: center;
                         font-weight: bold;
                         padding-bottom: 5px;
                         /* background-color: aqua; */
                     }
-                
+
                     .horizontal-line {
                         width: 100%;
                         height: 1px;
                         background-color: rgba(0, 0, 0, 0.1);
                         border-radius: 100px;
                         /* border: 1px solid rgba(0, 0, 0, 0.1); */
-                
+
                     }
-                
+
                     .vertical-line {
                         height: 100%;
                         width: 2px;
                         background-color: rgba(0, 0, 0, 0.1);
                         border-radius: 100px;
                         /* border: 1px solid rgba(0, 0, 0, 0.1); */
-                
+
                     }
-                
+
                     .ranking-table {
                         width: 100%;
                         /* background-color: pink; */
                     }
-                
+
                     .ranking-players {
                         /* background-color: blue; */
                         width: 100%;
-                        
+
                     }
-                
+
                     .player {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         padding: 8.5px 8.5px;
                     }
-                
-                    .points{
+
+                    .points {
                         width: 70px;
                         text-align: end;
                     }
-                
-                    .first-player{
+
+                    .first-player {
                         padding-top: 15px;
                     }
-                
+
                     .avatar-head {
                         border-radius: 5px;
                     }
-                
-                    .player > .classification-player {
+
+                    .player>.classification-player {
                         font-weight: bold;
                         width: 30px;
                     }
-                
-                    .player > .first-class  {
+
+                    .player>.first-class {
                         color: rgba(255, 168, 0, 1);
                     }
-                
-                    .player > .second-class  {
+
+                    .player>.second-class {
                         color: rgba(158, 158, 158, 1)
                     }
-                
-                    .player > .third-class  {
+
+                    .player>.third-class {
                         color: rgba(203, 85, 0, 1)
                     }
-                
-                    .player > .nickname {
+
+                    .player>.nickname {
                         /* background-color: blueviolet; */
                         padding-left: 10px;
                         width: 200px;
                     }
-                
+
+                    @media screen and (max-width: 1223px) {
+                        #ranking-wrapper {
+                            justify-content: start;
+                        }
+                    }
                 </style>
-                
-                
+
+
                 <div id="ranking-wrapper">
-                
+
                     <div id="ranking">
-                
+
                         <div class="ranking-table" id="victory-table">
-                
+
                             <div class="ranking-title">
                                 <span>Ranking de Vitórias</span>
                             </div>
                             <div class="horizontal-line">
-                                
+
                             </div>
                             <div id="victory-players" class="ranking-players">
-                
-                                
-                
+
+
+
                             </div>
                         </div>
-                    
+
                         <div class="vertical-line">
-                                
+
                         </div>
-                
+
                         <div class="ranking-table" id="kills-table">
                             <div class="ranking-title">
                                 <span>Ranking de </span>
                             </div>
-                
+
                             <div class="horizontal-line">
-                                
+
                             </div>
-                            
+
                             <div id="kill-players" class="ranking-players">
-                                
-                
+
+
                             </div>
-                
-                
+
+
                         </div>
-                    
+
                     </div>
-                
+
                 </div>
             </div>
         </div>
