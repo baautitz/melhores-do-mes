@@ -110,6 +110,7 @@ function copyHTML() {
         html,
         body {
             width: 100%;
+            min-width: 1000px;
             height: 100%;
 
             background-color: rgb(245, 245, 245);
@@ -355,116 +356,120 @@ function copyHTML() {
                     #ranking-wrapper {
                         font-size: 20px;
                         font-family: Noto Sans, sans-serif;
-            
+                
                         width: 100%;
-                        min-width: 750px;
-                        display: flex;
-                        justify-content: center;
+                        max-width: 830px;
             
+                        display: flex;
+                        /* justify-content: center; */
+                
+                        overflow-x: auto;
                         /* background-color: green; */
                     }
-            
+                
                     #ranking {
                         padding: 15px;
                         border-radius: 5px;
                         width: 750px;
-                        max-width: 750px;
+                        min-width: 750px;
             
+                        margin: 20px 5px;
+                
                         box-shadow: 0px 0px 12px -3px rgb(0 0 0 / 50%);
-            
+                
                         display: flex;
                         justify-content: space-around;
                     }
-            
-            
+                
+                
                     .ranking-title {
                         text-align: center;
                         font-weight: bold;
                         padding-bottom: 5px;
                         /* background-color: aqua; */
                     }
-            
+                
                     .horizontal-line {
                         width: 100%;
                         height: 1px;
                         background-color: rgba(0, 0, 0, 0.1);
                         border-radius: 100px;
                         /* border: 1px solid rgba(0, 0, 0, 0.1); */
-            
+                
                     }
-            
+                
                     .vertical-line {
                         height: 100%;
                         width: 2px;
                         background-color: rgba(0, 0, 0, 0.1);
                         border-radius: 100px;
                         /* border: 1px solid rgba(0, 0, 0, 0.1); */
-            
+                
                     }
-            
+                
                     .ranking-table {
                         width: 100%;
                         /* background-color: pink; */
                     }
-            
+                
                     .ranking-players {
                         /* background-color: blue; */
                         width: 100%;
                         
                     }
-            
+                
                     .player {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         padding: 8.5px 8.5px;
                     }
-            
+                
                     .points{
                         width: 70px;
                         text-align: end;
                     }
-            
+                
                     .first-player{
                         padding-top: 15px;
                     }
-            
+                
                     .avatar-head {
                         border-radius: 5px;
                     }
-            
+                
                     .player > .classification-player {
                         font-weight: bold;
                         width: 30px;
                     }
-            
+                
                     .player > .first-class  {
                         color: rgba(255, 168, 0, 1);
                     }
-            
+                
                     .player > .second-class  {
                         color: rgba(158, 158, 158, 1)
                     }
-            
+                
                     .player > .third-class  {
                         color: rgba(203, 85, 0, 1)
                     }
-            
+                
                     .player > .nickname {
                         /* background-color: blueviolet; */
                         padding-left: 10px;
                         width: 200px;
                     }
-            
+                
                 </style>
-            
-            
+                
+                
                 <div id="ranking-wrapper">
-            
+                
                     <div id="ranking">
                 
                         <div class="ranking-table" id="victory-table">
-            
+                
                             <div class="ranking-title">
                                 <span>Ranking de Vitórias</span>
                             </div>
@@ -472,28 +477,28 @@ function copyHTML() {
                                 
                             </div>
                             <div id="victory-players" class="ranking-players">
-            
+                
                                 
-            
+                
                             </div>
                         </div>
                     
                         <div class="vertical-line">
                                 
                         </div>
-            
+                
                         <div class="ranking-table" id="kills-table">
                             <div class="ranking-title">
                                 <span>Ranking de </span>
                             </div>
-            
+                
                             <div class="horizontal-line">
                                 
                             </div>
                             
                             <div id="kill-players" class="ranking-players">
                                 
-            
+                
                             </div>
                 
                 
